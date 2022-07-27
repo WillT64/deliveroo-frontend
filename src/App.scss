@@ -282,7 +282,7 @@ h3 {
 .panier--infos--item {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
 
   padding: 1rem 0;
 
@@ -293,20 +293,27 @@ h3 {
   }
 
   p:first-child {
+    flex-grow: 1;
+
     min-width: 60px;
     max-width: 60px;
   }
 
   p:nth-child(2) {
-    text-align: center;
+    flex-grow: 2;
+
+    padding-left: 8px;
   }
 
   p:last-child {
     display: flex;
     justify-content: flex-end;
+    flex-grow: 1;
 
     min-width: 60px;
     max-width: 60px;
+
+    right: 0;
   }
 }
 
