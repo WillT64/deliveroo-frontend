@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 import "./App.scss";
+import Cart from "./Component/cart";
+import Lunch from "./Component/lunchs";
+import Banner from "./Component/banner";
 
 import logoDeliveroo from "./assets/imgs/images/logo-teal.svg";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -11,6 +14,7 @@ import {
   faCirclePlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 library.add(faStar, faCircleMinus, faCirclePlus);
 
 function App() {
@@ -77,119 +81,22 @@ function App() {
 
       <div className="body">
         <div className="top">
-          <div className="resto">
-            <div className="resto--infos">
-              <h1>{data.restaurant.name}</h1>
-              <p>{data.restaurant.description}</p>
-            </div>
-            <div className="resto--picture">
-              <img src={data.restaurant.picture} alt="resto" />
-            </div>
-          </div>
+          <Banner data={data} />
         </div>
 
         <div className="mid">
-          <div className="categories">
-            {data.categories.map((elem, index) => {
-              if (elem.meals.length > 0) {
-                return (
-                  <>
-                    <h2>{elem.name}</h2>
-                    <div className="menu" key={index}>
-                      {elem.meals.map((elem, index2) => {
-                        const foodName = elem.title;
-                        const foodPrice = elem.price;
-
-                        return (
-                          <div
-                            className="lunch"
-                            key={index2}
-                            value={foodName}
-                            onClick={() => {
-                              addFood(foodName, foodPrice);
-                            }}
-                          >
-                            <div className="lunch--infos">
-                              <h3 className="lunch--title">{elem.title}</h3>
-                              <p className="lunch--description">
-                                {elem.description}
-                              </p>
-                              <div className="lunch--pp">
-                                <p className="lunch--price">{elem.price} €</p>
-                                {elem.popular && (
-                                  <p className="lunch--popular">
-                                    <FontAwesomeIcon icon="star" />
-                                    <span> Populaire </span>
-                                  </p>
-                                )}
-                              </div>
-                            </div>
-                            <div className="lunch--picture">
-                              <img src={elem.picture} alt="lunch" />
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </>
-                );
-              }
-            })}
-          </div>
-          <div className="panier">
-            <div className="panier--card">
-              <button className="panier--button">Valider mon panier</button>
-              <div className="panier--infos">
-                {foodCart.map((elem, index) => {
-                  return (
-                    <div className="panier--infos--item">
-                      <p>
-                        <FontAwesomeIcon
-                          icon="circle-minus"
-                          onClick={() => {
-                            const newCart = [...foodCart];
-
-                            if (newCart[index].quantity === 1) {
-                              newCart.splice(index, 1);
-                            } else {
-                              newCart[index].quantity--;
-                            }
-
-                            setFoodCart(newCart);
-                          }}
-                        />
-                        <span> {elem.quantity} </span>
-                        <FontAwesomeIcon
-                          icon="circle-plus"
-                          onClick={() => {
-                            const newCart = [...foodCart];
-                            newCart[index].quantity++;
-                            setFoodCart(newCart);
-                          }}
-                        />
-                      </p>
-                      <p>{elem.name}</p>
-                      <p>{(elem.price * elem.quantity).toFixed(2)} €</p>
-                    </div>
-                  );
-                })}
-              </div>
-              <div className="panier--result">
-                <div className="panier--result--item">
-                  <p>Sous-total</p>
-                  <p>{cartPrice.toFixed(2)} €</p>
-                </div>
-                <div className="panier--result--item">
-                  <p>Frais de livraison</p>
-                  <p>{deliveryPrice.toFixed(2)} €</p>
-                </div>
-              </div>
-              <div className="panier--total">
-                <span>Total</span>
-                <span>{(cartPrice + deliveryPrice).toFixed(2)} €</span>
-              </div>
-            </div>
-          </div>
+          <Lunch
+            data={data}
+            addFood={addFood}
+            FontAwesomeIcon={FontAwesomeIcon}
+          />
+          <Cart
+            foodCart={foodCart}
+            setFoodCart={setFoodCart}
+            cartPrice={cartPrice}
+            deliveryPrice={deliveryPrice}
+            FontAwesomeIcon={FontAwesomeIcon}
+          />
         </div>
 
         <div className="bot"></div>
