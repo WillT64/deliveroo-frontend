@@ -17,10 +17,7 @@ function App() {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
-  const [foodCart, setFoodCart] = useState([
-    { name: "Fromage blanc bio au miel", price: 10, quantity: 3 },
-    { name: "Brunch authentique 1 personne", price: 22, quantity: 6 },
-  ]);
+  const [foodCart, setFoodCart] = useState([]);
   const [cartPrice, setCartPrice] = useState(0);
   const [deliveryPrice, setDeliveryPrice] = useState(2.5);
 
@@ -172,7 +169,7 @@ function App() {
                         />
                       </p>
                       <p>{elem.name}</p>
-                      <p>{Math.round(elem.price * elem.quantity)} €</p>
+                      <p>{(elem.price * elem.quantity).toFixed(2)} €</p>
                     </div>
                   );
                 })}
@@ -180,16 +177,16 @@ function App() {
               <div className="panier--result">
                 <div className="panier--result--item">
                   <p>Sous-total</p>
-                  <p>{Math.round(cartPrice)} €</p>
+                  <p>{cartPrice.toFixed(2)} €</p>
                 </div>
                 <div className="panier--result--item">
                   <p>Frais de livraison</p>
-                  <p>{Math.round(deliveryPrice)} €</p>
+                  <p>{deliveryPrice.toFixed(2)} €</p>
                 </div>
               </div>
               <div className="panier--total">
                 <span>Total</span>
-                <span>{Math.round(cartPrice + deliveryPrice)} €</span>
+                <span>{(cartPrice + deliveryPrice).toFixed(2)} €</span>
               </div>
             </div>
           </div>
