@@ -5,7 +5,14 @@ const Cart = (props) => {
   return (
     <div className="panier">
       <div className="panier--card">
-        <button className="panier--button">Valider mon panier</button>
+        <button
+          className="panier--button"
+          onClick={() => {
+            setFoodCart([]);
+          }}
+        >
+          Valider mon panier
+        </button>
         <div className="panier--infos">
           {foodCart.map((elem, index) => {
             return (
