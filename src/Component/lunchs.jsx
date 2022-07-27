@@ -35,9 +35,11 @@ const Lunch = (props) => {
                           )}
                         </div>
                       </div>
-                      <div className="lunch--picture">
-                        <img src={elem.picture} alt="lunch" />
-                      </div>
+                      {elem.picture && (
+                        <div className="lunch--picture">
+                          <img src={elem.picture} alt="lunch" />
+                        </div>
+                      )}
                     </div>
                   );
                 })}
