@@ -302,8 +302,11 @@ h3 {
   }
 
   p:last-child {
-    min-width: 50px;
-    max-width: 50px;
+    display: flex;
+    justify-content: flex-end;
+
+    min-width: 60px;
+    max-width: 60px;
   }
 }
 
